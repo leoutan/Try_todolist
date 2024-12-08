@@ -18,7 +18,7 @@ const errorHandler = require('./middlewares/error-handler')
 
 
 const handlebars = require('handlebars')
-const passport = require('passport')
+const passport = require('./config/passport') //分離路由中的 passport
 
 
 
