@@ -1,0 +1,29 @@
+<div class="container" style="max-width: 600px;">
+  <form action="/login" method="post">
+    <div class="card">
+      <div class="card-header">Login page</div>
+      <div class="card-body">
+        <div class="row form-group mb-2">
+          <label for="email" class="col-sm-4 col-form-label">email</label>
+          <input type="text" class="col-sm-8" name="email" id="email">
+        </div>
+
+        <div class="row form-group mb-2">
+          <label for="password" class="col-sm-4 col-form-label">password</label>
+          <input type="text" class="col-sm-8" name="password" id="password">
+        </div>
+      </div>
+      <div class="card-footer">
+        <button type="submit">Login</button>
+        {{>message}}
+        <div style="mt-2">
+          <span>No account ?</span>
+          <a href="/register"><i>register</i></a>
+        </div>
+      </div>
+    </div>
+  </form>
+  <form action="/login/facebook">
+    <button type="submit">Facebook Login</button>
+  </form>
+</div>

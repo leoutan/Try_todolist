@@ -1,0 +1,71 @@
+
+<div class="container" style="display: flex; justify-content:space-around; align-items:baseline">
+  <div class="container search-bar" style="margin:auto 0; max-width:600px; ">
+    <div class="row" style="margin: 10px 0;">
+      <form action="/todos" id="search-and-sort">
+        <div class="row">
+          <div class="col-sm-8">
+            <label for="keyword">尋找 todo </label>
+            <input type="text" id="keyword" name="keyword" value="{{keyword}}" placeholder="請輸入關鍵字">
+            <button type="submit">search</button>
+          </div>
+          <div class="col-sm-4">
+            <select name="sort" id="sort" onchange="document.getElementById('search-and-sort').submit()">
+              <option disabled selected>排序方式</option>
+              <option value="none" {{#if (eq sort "none" )}}selected{{/if}}>不排序</option>
+              <option value="ASC" {{#if (eq sort "ASC" )}}selected{{/if}}>依名稱由小到大(A->Z)</option>
+              <option value="DESC" {{#if (eq sort "DESC" )}}selected{{/if}}>依名稱由大到小(Z->A)</option>
+              <option value="updatedAt_ASC" {{#if (eq sort "updatedAt_ASC" )}}selected{{/if}}>依更新日期由舊到新</option>
+              <option value="updatedAt_DESC" {{#if (eq sort "updatedAt_DESC" )}}selected{{/if}}>依更新日期由新到舊</option>
+            </select>
+          </div>
+        </div>
+      </form>
+    </div>
+    <div class="row">
+      <a href="/todos/new">
+        <button type="button">
+          create
+        </button>
+      </a>
+    </div>
+    {{> message}}
+    <ul>
+      {{#each todos as |todo|}}
+      <li style="margin: 3px 0;">
+        <input type="checkbox" name="isComplete" disabled {{#if todo.isComplete}} checked {{/if}}>
+        {{todo.name}}
+        <a href="/todos/{{todo.id}}">detail</a>
+        <a href="/todos/{{todo.id}}/edit">edit</a>
+        <form action="/todos/{{todo.id}}?_method=delete" method="post" style="display: inline;">
+          <button type="submit">delete</button>
+        </form>
+      </li>
+      {{/each}}
+    </ul>
+    <div style="display: flex;">
+      <form action="/todos" method="get">
+        <input type="hidden" name="page" value="{{prev}}">
+        <input type="hidden" name="keyword" value="{{keyword}}">
+        <input type="hidden" name="sort" value="{{sort}}">
+        {{!-- <input type="hidden" name="prevcursor" value="{{prevcursor}}"> --}}
+        <button type="submit">prev</button>
+      </form>
+      <br>
+      <span style="margin: 0 10px;">{{page}}</span>
+      <span>/</span>
+      <span style="margin: 0 10px;">{{maxPage}}</span>
+  
+      <form action="/todos">
+        <input type="hidden" name="page" value="{{next}}">
+        <input type="hidden" name="keyword" value="{{keyword}}">
+        <input type="hidden" name="sort" value="{{sort}}">
+        {{!-- <input type="hidden" name="nextcursor" value="{{nextcursor}}"> --}}
+        <button type="submit">next</button>
+      </form>
+  
+    </div>
+  </div>
+  {{> logout}}
+  <a href="https://www.facebook.com/logout.php?next=YOUR_REDIRECT_URL&access_token=USER_ACCESS_TOKEN">登出 Facebook</a>
+</div>

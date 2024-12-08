@@ -1,0 +1,13 @@
+{{> message}}
+{{> logout}}
+<ul>
+  <li>
+    <input type="checkbox" name="isComplete" disabled {{#if todo.isComplete}} checked {{/if}}>
+    <span>{{todo.name}}</span>
+    <a href="/todos/{{todo.id}}/edit">edit</a>
+    <form action="/todos/{{todo.id}}?_method=delete" method="post" style="display: inline;">
+      <button type="submit">delete</button>
+    </form>
+    <a href="/todos">back</a>
+  </li>
+</ul>
